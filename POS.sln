@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{17C9B26D-00F4-4972-AFFD-6C3B0DEE7D25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Domain", "src\POS.Domain\POS.Domain.csproj", "{B9A3FC26-4F9E-4AA6-9379-F01014B1519B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4BBA66D7-E5FE-4784-91BC-10794EF50555}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		E:\Clean Architecture\clean_architecture_template\clean_architecture\Directory.Build.props = E:\Clean Architecture\clean_architecture_template\clean_architecture\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.SharedKernel", "src\POS.SharedKernel\POS.SharedKernel.csproj", "{72390FBA-6E93-D5BE-574C-FCD167BBB277}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9A3FC26-4F9E-4AA6-9379-F01014B1519B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9A3FC26-4F9E-4AA6-9379-F01014B1519B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9A3FC26-4F9E-4AA6-9379-F01014B1519B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9A3FC26-4F9E-4AA6-9379-F01014B1519B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72390FBA-6E93-D5BE-574C-FCD167BBB277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72390FBA-6E93-D5BE-574C-FCD167BBB277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72390FBA-6E93-D5BE-574C-FCD167BBB277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72390FBA-6E93-D5BE-574C-FCD167BBB277}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B9A3FC26-4F9E-4AA6-9379-F01014B1519B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{72390FBA-6E93-D5BE-574C-FCD167BBB277} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BAD2AD72-0119-47B7-8241-B34C1A624D1B}
+	EndGlobalSection
+EndGlobal
