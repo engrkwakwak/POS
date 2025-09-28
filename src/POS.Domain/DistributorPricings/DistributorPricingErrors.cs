@@ -4,7 +4,7 @@ namespace POS.Domain.DistributorPricings;
 
 public static class DistributorPricingErrors
 {
-    public static readonly Error CostMustBePositive = Error.Validation(
+    public static readonly Error CostMustBePositive = Error.Problem(
         "DistributorPricing.CostMustBePositive",
         "The cost for a product must be a positive value.");
 }
