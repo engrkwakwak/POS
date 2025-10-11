@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Directory.Build.props", "."]
+COPY ["Directory.Packages.props", "."]
 COPY ["src/POS.Api/POS.Api.csproj", "src/POS.Api/"]
 RUN dotnet restore "./src/POS.Api/POS.Api.csproj"
 COPY . .

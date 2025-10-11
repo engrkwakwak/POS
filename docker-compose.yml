@@ -4,7 +4,7 @@ services:
     container_name: POS.Api
     build:
       context: .
-      dockerfile: src/Web.Api/Dockerfile
+      dockerfile: src/POS.Api/Dockerfile
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire-dashboard:18889
     ports:

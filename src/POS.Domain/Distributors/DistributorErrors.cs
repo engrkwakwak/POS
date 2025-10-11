@@ -4,7 +4,7 @@ namespace POS.Domain.Distributors;
 
 public static class DistributorErrors
 {
-    public static readonly Error AgentWithEmailAlreadyExists = Error.Problem(
+    public static readonly Error AgentWithEmailAlreadyExists = Error.Conflict(
         "Distributor.AgentWithEmailAlreadyExists",
         "An agent with the provided email already exists for this distributor.");
 }
