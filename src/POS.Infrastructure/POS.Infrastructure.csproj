@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="libphonenumber-csharp" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\POS.SharedKernel\POS.SharedKernel.csproj" />
+    <ProjectReference Include="..\POS.Application\POS.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,9 +13,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		E:\Clean Architecture\clean_architecture_template\clean_architecture\Directory.Build.props = E:\Clean Architecture\clean_architecture_template\clean_architecture\Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.SharedKernel", "src\POS.SharedKernel\POS.SharedKernel.csproj", "{72390FBA-6E93-D5BE-574C-FCD167BBB277}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Api", "src\POS.Api\POS.Api.csproj", "{A9BA8460-BDAC-4F30-9F08-870F5D839E81}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Application", "src\POS.Application\POS.Application.csproj", "{178E2BE1-ABCF-4CAC-ADEE-8195546F6B06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS.Infrastructure", "src\POS.Infrastructure\POS.Infrastructure.csproj", "{F748BAC7-54BC-4D5E-A77C-84A77D9D27B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +40,22 @@ Global
 		{72390FBA-6E93-D5BE-574C-FCD167BBB277}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72390FBA-6E93-D5BE-574C-FCD167BBB277}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72390FBA-6E93-D5BE-574C-FCD167BBB277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9BA8460-BDAC-4F30-9F08-870F5D839E81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9BA8460-BDAC-4F30-9F08-870F5D839E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9BA8460-BDAC-4F30-9F08-870F5D839E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9BA8460-BDAC-4F30-9F08-870F5D839E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178E2BE1-ABCF-4CAC-ADEE-8195546F6B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178E2BE1-ABCF-4CAC-ADEE-8195546F6B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178E2BE1-ABCF-4CAC-ADEE-8195546F6B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178E2BE1-ABCF-4CAC-ADEE-8195546F6B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F748BAC7-54BC-4D5E-A77C-84A77D9D27B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F748BAC7-54BC-4D5E-A77C-84A77D9D27B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F748BAC7-54BC-4D5E-A77C-84A77D9D27B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F748BAC7-54BC-4D5E-A77C-84A77D9D27B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +63,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B9A3FC26-4F9E-4AA6-9379-F01014B1519B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{72390FBA-6E93-D5BE-574C-FCD167BBB277} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{A9BA8460-BDAC-4F30-9F08-870F5D839E81} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{178E2BE1-ABCF-4CAC-ADEE-8195546F6B06} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F748BAC7-54BC-4D5E-A77C-84A77D9D27B8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAD2AD72-0119-47B7-8241-B34C1A624D1B}
