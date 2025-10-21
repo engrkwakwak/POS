@@ -12,6 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4BBA66D7-E5FE-4784-91BC-10794EF50555}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.coderabbit.yaml = .coderabbit.yaml
+		CONTRIBUTING.MD = CONTRIBUTING.MD
 		E:\Clean Architecture\clean_architecture_template\clean_architecture\Directory.Build.props = E:\Clean Architecture\clean_architecture_template\clean_architecture\Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
