@@ -18,7 +18,7 @@ public sealed partial record PurchaseOrderNumber
             return Result.Failure<PurchaseOrderNumber>(PurchaseOrderNumberErrors.Empty);
         }
 
-        if (!OrderNumberRegex().IsMatch(value))
+        if (!PurchaseOrderNumberRegex().IsMatch(value))
         {
             return Result.Failure<PurchaseOrderNumber>(PurchaseOrderNumberErrors.InvalidFormat);
         }
@@ -27,5 +27,5 @@ public sealed partial record PurchaseOrderNumber
     }
 
     [GeneratedRegex(FormatPattern)]
-    private static partial Regex OrderNumberRegex();
+    private static partial Regex PurchaseOrderNumberRegex();
 }

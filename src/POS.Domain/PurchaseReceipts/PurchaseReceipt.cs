@@ -38,6 +38,16 @@ public sealed class PurchaseReceipt : Entity
         DateTime receiptDateInUtc,
         IDocumentNumberGenerationService documentNumberGenerationService)
     {
+        if (purchaseOrderId == Guid.Empty)
+        {
+            return Result.Failure<PurchaseReceipt>(PurchaseReceiptErrors.InvalidPurchaseOrderId);
+        }
+
+        if (receivedByUserId == Guid.Empty)
+        {
+            return Result.Failure<PurchaseReceipt>(PurchaseReceiptErrors.InvalidUserId);
+        }
+
         PurchaseReceiptNumber receiptNumber = await documentNumberGenerationService
             .GeneratePurchaseReceiptNumberAsync();
 
@@ -56,6 +66,16 @@ public sealed class PurchaseReceipt : Entity
         Quantity quantityToReceive,
         Quantity quantityAlreadyReceived)
     {
+        if (orderItem is null)
+        {
+            return Result.Failure(PurchaseReceiptErrors.NullOrderItem);
+        }
+
+        if (orderItem.PurchaseOrderId != PurchaseOrderId)
+        {
+            return Result.Failure(PurchaseReceiptErrors.OrderMismatch);
+        }
+
         if (PurchaseReceiptStatus != PurchaseReceiptStatus.Pending)
         {
             return Result.Failure(PurchaseReceiptErrors.NotPending);

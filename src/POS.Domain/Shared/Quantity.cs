@@ -6,7 +6,7 @@ public sealed record Quantity
 {
     public Quantity(int value)
     {
-        Ensure.GreaterThanZero(value);
+        Ensure.GreaterThanOrEqualToZero(value);
         Value = value;
     }
     public int Value { get; }
@@ -16,9 +16,9 @@ public sealed record Quantity
     public static Quantity operator -(Quantity a, Quantity b)
     {
         int newValue = a.Value - b.Value;
-        if(newValue <= 0)
+        if(newValue < 0)
         {
-            throw new InvalidOperationException("Resulting quantity cannot be negative");
+            throw new InvalidOperationException("Resulting quantity must be greater than or equal to zero");
         }
         return new Quantity(newValue);
     }

@@ -87,6 +87,6 @@ public sealed class Product : Entity
 
         _variants.Add(variant);
 
-        return variant;
+        return Result.Success(variant);
     }
 }
