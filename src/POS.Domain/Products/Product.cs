@@ -66,6 +66,7 @@ public sealed class Product : Entity
             return Result.Failure<ProductVariant>(ProductErrors.VariantWithBarcodeAlreadyExists);
         }
 
+        // Put this inside the domain service later.
         int nextVariantSuffix = _variants.Count + 1;
         string skuValue = $"{ProductCode.Value}-{nextVariantSuffix:D2}";
         Result<Sku> skuResult = Sku.Create(skuValue);
@@ -86,6 +87,6 @@ public sealed class Product : Entity
 
         _variants.Add(variant);
 
-        return variant;
+        return Result.Success(variant);
     }
 }
