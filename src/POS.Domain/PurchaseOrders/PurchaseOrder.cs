@@ -33,16 +33,13 @@ public sealed class PurchaseOrder : Entity
     private readonly List<PurchaseOrderItem> _orderItems = [];
     public IReadOnlyCollection<PurchaseOrderItem> Items => _orderItems.AsReadOnly();
 
-    public static async Task<Result<PurchaseOrder>> Create(
+    public static PurchaseOrder Create(
         Guid distributorAgentId,
+        PurchaseOrderNumber orderNumber,
         Guid branchId,
         Guid orderedByUserId,
-        DateTime orderedDateInUtc,
-        IDocumentNumberGenerationService documentNumberGenerationService)
+        DateTime orderedDateInUtc)
     {
-        PurchaseOrderNumber orderNumber = await documentNumberGenerationService
-            .GeneratePurchaseOrderNumberAsync();
-
         var purchaseOrder = new PurchaseOrder(
             Guid.NewGuid(),
             orderNumber,
@@ -51,7 +48,7 @@ public sealed class PurchaseOrder : Entity
             orderedByUserId,
             orderedDateInUtc);
 
-        return Result.Success(purchaseOrder);
+        return purchaseOrder;
     }
 
     public Result AddOrderItem(

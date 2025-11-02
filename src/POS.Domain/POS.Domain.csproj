@@ -14,4 +14,8 @@
     <ProjectReference Include="..\POS.SharedKernel\POS.SharedKernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="InventoryItems\" />
+  </ItemGroup>
+
 </Project>
