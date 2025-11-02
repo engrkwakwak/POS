@@ -11,7 +11,8 @@ public sealed class PurchaseReceipt : Entity
         Guid purchaseOrderId,
         Guid receivedByUserId,
         DateTime receiptDateInUtc,
-        PurchaseReceiptStatus purchaseReceiptStatus)
+        PurchaseReceiptStatus purchaseReceiptStatus,
+        DateOnly expirationDate)
         : base(id)
     {
         PurchaseReceiptNumber = receiptNumber;
@@ -19,6 +20,7 @@ public sealed class PurchaseReceipt : Entity
         ReceivedByUserId = receivedByUserId;
         ReceiptDateInUtc = receiptDateInUtc;
         PurchaseReceiptStatus = purchaseReceiptStatus;
+        ExpirationDate = expirationDate;
     }
 
     private PurchaseReceipt() { }
@@ -28,6 +30,7 @@ public sealed class PurchaseReceipt : Entity
     public Guid ReceivedByUserId { get; private set; }
     public DateTime ReceiptDateInUtc { get; private set; }
     public PurchaseReceiptStatus PurchaseReceiptStatus { get; private set; }
+    public DateOnly ExpirationDate { get; private set; }
 
     private readonly List<PurchaseReceiptItem> _receiptItems = [];
     public IReadOnlyCollection<PurchaseReceiptItem> ReceiptItems => _receiptItems.AsReadOnly();
@@ -36,6 +39,7 @@ public sealed class PurchaseReceipt : Entity
         Guid purchaseOrderId,
         Guid receivedByUserId,
         DateTime receiptDateInUtc,
+        DateOnly expirationDate,
         IDocumentNumberGenerationService documentNumberGenerationService)
     {
         if (purchaseOrderId == Guid.Empty)
@@ -57,7 +61,8 @@ public sealed class PurchaseReceipt : Entity
             purchaseOrderId,
             receivedByUserId,
             receiptDateInUtc,
-            purchaseReceiptStatus: PurchaseReceiptStatus.Pending);
+            purchaseReceiptStatus: PurchaseReceiptStatus.Pending,
+            expirationDate);
         return Result.Success(purchaseReceipt);
     }
 

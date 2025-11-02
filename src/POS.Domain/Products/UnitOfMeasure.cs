@@ -17,12 +17,12 @@ public sealed record UnitOfMeasure
     {
         if (type == UnitOfMeasureType.Case && (itemsPerCase is null || itemsPerCase <= 1))
         {
-            return Result.Failure<UnitOfMeasure>(ProductErrors.InvalidItemsPerCase);
+            return Result.Failure<UnitOfMeasure>(ProductErrors.UnitOfMeasure.InvalidItemsPerCase);
         }
 
         if (type == UnitOfMeasureType.Piece && itemsPerCase is not null)
         {
-            return Result.Failure<UnitOfMeasure>(ProductErrors.ItemsPerCaseForPieceNotAllowed);
+            return Result.Failure<UnitOfMeasure>(ProductErrors.UnitOfMeasure.ItemsPerCaseForPieceNotAllowed);
         }
 
         return new UnitOfMeasure(type, itemsPerCase);
