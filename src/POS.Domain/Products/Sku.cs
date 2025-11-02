@@ -32,6 +32,6 @@ public sealed record Sku
             return Result.Failure<Sku>(ProductErrors.Sku.InvalidFormat);
         }
 
-        return new Sku(value);
+        return new Sku(value.ToUpperInvariant());
     }
 }
