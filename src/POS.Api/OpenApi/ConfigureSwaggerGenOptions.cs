@@ -31,7 +31,7 @@ internal sealed class ConfigureSwaggerGenOptions : IConfigureNamedOptions<Swagge
     {
         var openApiInfo = new OpenApiInfo
         {
-            Title = $"RunTrackr.Api v{apiVersionDescription.ApiVersion}",
+            Title = $"POS.Api v{apiVersionDescription.ApiVersion}",
             Version = apiVersionDescription.ApiVersion.ToString()
         };
 

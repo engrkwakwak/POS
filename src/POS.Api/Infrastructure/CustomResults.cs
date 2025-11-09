@@ -52,6 +52,7 @@ internal static class CustomResults
             errorType switch
             {
                 ErrorType.Validation => StatusCodes.Status400BadRequest,
+                ErrorType.Problem => StatusCodes.Status400BadRequest,
                 ErrorType.NotFound => StatusCodes.Status404NotFound,
                 ErrorType.Conflict => StatusCodes.Status409Conflict,
                 _ => StatusCodes.Status500InternalServerError

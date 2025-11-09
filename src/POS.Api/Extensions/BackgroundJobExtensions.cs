@@ -9,10 +9,16 @@ internal static class BackgroundJobExtensions
     {
         IRecurringJobManager recurringJobManager = app.Services.GetRequiredService<IRecurringJobManager>();
 
+        string? schedule = app.Configuration["BackgroundJobs:SampleJob:Schedule"];
+        if (string.IsNullOrWhiteSpace(schedule))
+        {
+            throw new InvalidOperationException("Configuration key 'BackgroundJobs:Outbox:Schedule' is required.");
+        }
+
         recurringJobManager.AddOrUpdate<IProcessOutboxMessagesJob>(
             "outbox-processor",
             job => job.ProcessAsync(),
-            app.Configuration["BackgroundJobs:Outbox:Schedule"]);
+            schedule);
 
         return app;
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using POS.Domain.Brands;
 using POS.Domain.Products;
 
 namespace POS.Infrastructure.Database.Configurations;
@@ -38,6 +39,11 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasMany(p => p.Variants)
             .WithOne()
             .HasForeignKey(v => v.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Brand>()
+            .WithMany()
+            .HasForeignKey(p => p.BrandId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
