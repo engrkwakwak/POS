@@ -19,7 +19,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
-      - ./.containers/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     ports:
       - 5432:5432
 
@@ -28,6 +28,7 @@ services:
     container_name: POS.Seq
     environment:
       - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINPASSWORD=admin123
     ports:
       - 5341:5341
       - 8081:80
@@ -42,5 +43,10 @@ services:
   aspire-dashboard:
     image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard:latest
     container_name: POS.AspireDashboard
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
     ports:
      - 18888:18888
+
+volumes:
+  postgres_data:
