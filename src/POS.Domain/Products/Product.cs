@@ -49,7 +49,8 @@ public sealed class Product : Entity
             category,
             brandId,
             isVatable);
-        return Result.Success(product);
+
+        return product;
     }
 
     public Result<ProductVariant> AddVariant(

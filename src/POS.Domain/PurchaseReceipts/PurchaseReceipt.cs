@@ -35,12 +35,11 @@ public sealed class PurchaseReceipt : Entity
     private readonly List<PurchaseReceiptItem> _receiptItems = [];
     public IReadOnlyCollection<PurchaseReceiptItem> ReceiptItems => _receiptItems.AsReadOnly();
 
-    public static async Task<Result<PurchaseReceipt>> Create(
+    public static Result<PurchaseReceipt> Create(
         Guid purchaseOrderId,
         Guid receivedByUserId,
         DateTime receiptDateInUtc,
-        DateOnly expirationDate,
-        IDocumentNumberGenerationService documentNumberGenerationService)
+        DateOnly expirationDate)
     {
         if (purchaseOrderId == Guid.Empty)
         {
@@ -51,10 +50,7 @@ public sealed class PurchaseReceipt : Entity
         {
             return Result.Failure<PurchaseReceipt>(PurchaseReceiptErrors.InvalidUserId);
         }
-
-        PurchaseReceiptNumber receiptNumber = await documentNumberGenerationService
-            .GeneratePurchaseReceiptNumberAsync();
-
+        PurchaseReceiptNumber receiptNumber = PurchaseReceiptNumber.Create("ForReimplemention").Value;
         var purchaseReceipt = new PurchaseReceipt(
             Guid.NewGuid(),
             receiptNumber,
