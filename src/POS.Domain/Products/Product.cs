@@ -8,7 +8,6 @@ public sealed class Product : Entity
 
     private Product(
         Guid id,
-        ProductCode productCode, 
         Name name, 
         Description description, 
         ProductCategory category, 
@@ -16,7 +15,7 @@ public sealed class Product : Entity
         bool isVatable)
         : base(id)
     {
-        ProductCode = productCode;
+        ProductCode = ProductCode.Generate(id);
         Name = name;
         Description = description;
         Category = category;
@@ -37,7 +36,6 @@ public sealed class Product : Entity
     public IReadOnlyCollection<ProductVariant> Variants => _variants.AsReadOnly();
 
     public static Result<Product> Create(
-        ProductCode productCode,
         Name name,
         Description description,
         ProductCategory category,
@@ -46,19 +44,20 @@ public sealed class Product : Entity
     {
         var product = new Product(
             Guid.NewGuid(),
-            productCode,
             name,
             description,
             category,
             brandId,
             isVatable);
-        return Result.Success(product);
+
+        return product;
     }
 
     public Result<ProductVariant> AddVariant(
         Barcode barcode,
         Money price,
         UnitOfMeasure unitOfMeasure,
+        PackageSize size,
         bool isVatable)
     {
         if (_variants.Any(v => v.Barcode == barcode))
@@ -66,26 +65,17 @@ public sealed class Product : Entity
             return Result.Failure<ProductVariant>(ProductErrors.VariantWithBarcodeAlreadyExists);
         }
 
-        int nextVariantSuffix = _variants.Count + 1;
-        string skuValue = $"{ProductCode.Value}-{nextVariantSuffix:D2}";
-        Result<Sku> skuResult = Sku.Create(skuValue);
-
-        if (skuResult.IsFailure)
-        {
-            return Result.Failure<ProductVariant>(skuResult.Error);
-        }
-
         var variant = new ProductVariant(
             Guid.NewGuid(), 
             Id, 
-            skuResult.Value, 
             barcode, 
             price, 
-            unitOfMeasure, 
+            unitOfMeasure,
+            size,
             isVatable);
 
         _variants.Add(variant);
 
-        return variant;
+        return Result.Success(variant);
     }
 }

@@ -2,7 +2,7 @@
 
 public enum ProductCategory
 {
-    FreshProduce,
+    FreshProduce = 1,
     MeatAndPoultry,
     Seafood,
     DairyAndEggs,

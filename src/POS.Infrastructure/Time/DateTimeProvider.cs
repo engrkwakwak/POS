@@ -1,0 +1,7 @@
+﻿using POS.SharedKernel;
+
+namespace POS.Infrastructure.Time;
+internal sealed class DateTimeProvider : IDateTimeProvider
+{
+    public DateTime UtcNow => DateTime.UtcNow;
+}

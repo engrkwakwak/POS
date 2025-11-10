@@ -1,0 +1,10 @@
+﻿<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageVersion Include="libphonenumber-csharp" Version="9.0.13" />
+		<PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
+	</ItemGroup>
+</Project>

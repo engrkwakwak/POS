@@ -1,4 +1,6 @@
-﻿namespace POS.Domain.Distributors;
+﻿using POS.SharedKernel;
+
+namespace POS.Domain.Distributors;
 
 public sealed record FirstName
 {
