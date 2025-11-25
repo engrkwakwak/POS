@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
     <PackageReference Include="AspNetCore.HealthChecks.Redis" />
+    <PackageReference Include="Azure.Storage.Blobs" />
+    <PackageReference Include="CsvHelper" />
     <PackageReference Include="Dapper" />
     <PackageReference Include="EFCore.NamingConventions" />
     <PackageReference Include="Hangfire.AspNetCore" />
@@ -27,10 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\POS.Application\POS.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Database\Migrations\" />
   </ItemGroup>
 
 </Project>

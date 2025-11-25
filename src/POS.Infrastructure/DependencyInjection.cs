@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Azure.Storage.Blobs;
+using Dapper;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.EntityFrameworkCore;
@@ -13,14 +14,18 @@ using OpenTelemetry.Trace;
 using POS.Application.Abstractions.Caching;
 using POS.Application.Abstractions.Data;
 using POS.Application.Abstractions.Events;
+using POS.Application.Abstractions.Jobs;
+using POS.Application.Abstractions.Storage;
 using POS.Domain.Brands;
 using POS.Domain.Products;
 using POS.Infrastructure.Caching;
 using POS.Infrastructure.Database;
 using POS.Infrastructure.Events;
+using POS.Infrastructure.Jobs;
 using POS.Infrastructure.OpenTelemetry;
 using POS.Infrastructure.Outbox;
 using POS.Infrastructure.Repositories;
+using POS.Infrastructure.Storage;
 using POS.Infrastructure.Time;
 using POS.SharedKernel;
 
@@ -38,7 +43,8 @@ public static class DependencyInjection
             .AddHealthChecks(configuration)
             .AddMessaging()
             .AddBackgroundJobs(configuration)
-            .AddTelemetry();
+            .AddTelemetry()
+            .AddStorage(configuration);
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
@@ -113,6 +119,7 @@ public static class DependencyInjection
         services.AddHangfireServer(options => options.SchedulePollingInterval = TimeSpan.FromSeconds(1));
 
         services.AddScoped<IProcessOutboxMessagesJob, ProcessOutboxMessagesJob>();
+        services.AddScoped<IImportBrandsJobs, ImportBrandsJob>();
 
         return services;
     }
@@ -138,6 +145,20 @@ public static class DependencyInjection
 
                 tracing.AddOtlpExporter();
             });
+
+        return services;
+    }
+
+    private static IServiceCollection AddStorage(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<BlobStorageOptions>(
+            configuration.GetSection(BlobStorageOptions.SectionName));
+
+        string blobStorageConnectionString = configuration.GetConnectionString("StorageAccount")!;
+
+        services.AddSingleton(sp => new BlobServiceClient(blobStorageConnectionString));
+
+        services.AddScoped<IBlobStorageService, BlobStorageService>();
 
         return services;
     }

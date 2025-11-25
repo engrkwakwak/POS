@@ -3,18 +3,21 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using POS.Infrastructure.Database;
 
 #nullable disable
 
-namespace POS.Infrastructure.Migrations
+namespace POS.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251120031536_Add_Product_ProductVariant_Brand_Tables")]
+    partial class Add_Product_ProductVariant_Brand_Tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,6 +25,7 @@ namespace POS.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "9.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "citext");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("POS.Domain.Brands.Brand", b =>
@@ -30,17 +34,6 @@ namespace POS.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    b.ComplexProperty<Dictionary<string, object>>("Name", "POS.Domain.Brands.Brand.Name#Name", b1 =>
-                        {
-                            b1.IsRequired();
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("character varying(100)")
-                                .HasColumnName("name");
-                        });
 
                     b.HasKey("Id")
                         .HasName("pk_brands");
@@ -195,6 +188,37 @@ namespace POS.Infrastructure.Migrations
                         .HasName("pk_outbox_messages");
 
                     b.ToTable("outbox_messages", "public");
+                });
+
+            modelBuilder.Entity("POS.Domain.Brands.Brand", b =>
+                {
+                    b.OwnsOne("POS.Domain.Shared.Name", "Name", b1 =>
+                        {
+                            b1.Property<Guid>("BrandId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("citext")
+                                .HasColumnName("name");
+
+                            b1.HasKey("BrandId");
+
+                            b1.HasIndex("Value")
+                                .IsUnique()
+                                .HasDatabaseName("ix_brands_name");
+
+                            b1.ToTable("brands", "public");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BrandId")
+                                .HasConstraintName("fk_brands_brands_id");
+                        });
+
+                    b.Navigation("Name")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("POS.Domain.Products.Product", b =>
