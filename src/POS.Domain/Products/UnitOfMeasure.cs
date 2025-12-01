@@ -1,30 +1,35 @@
-﻿using POS.SharedKernel;
-
-namespace POS.Domain.Products;
+﻿namespace POS.Domain.Products;
 
 public sealed record UnitOfMeasure
 {
-    public UnitOfMeasureType Type { get; }
-    public int? ItemsPerCase { get; }
+    public static readonly UnitOfMeasure Gram = new("g", "Gram", UnitType.Mass, 1);
+    public static readonly UnitOfMeasure Kilogram = new("g", "Kilogram", UnitType.Mass, 1000);
+    public static readonly UnitOfMeasure Pound = new("lb", "Pound", UnitType.Mass, 453.592m);
 
-    private UnitOfMeasure(UnitOfMeasureType type, int? itemsPerCase = null)
+    public static readonly UnitOfMeasure Milliliter = new("ml", "Milliliter", UnitType.Volume, 1);
+    public static readonly UnitOfMeasure Liter = new("l", "Liter", UnitType.Volume, 1000);
+    public static readonly UnitOfMeasure FluidOunce = new("fl oz", "Fluid Ounce", UnitType.Volume, 29.5735m);
+
+    public string Code { get; }
+    public string Name { get; }
+    public UnitType Type { get; }
+    public decimal ToBaseUnitMultiplier { get; }
+    private UnitOfMeasure(string code, string name, UnitType type, decimal multiplier)
     {
+        Code = code;
+        Name = name;
         Type = type;
-        ItemsPerCase = itemsPerCase;
+        ToBaseUnitMultiplier = multiplier;
     }
 
-    public static Result<UnitOfMeasure> Create(UnitOfMeasureType type, int? itemsPerCase = null)
+    public static readonly IReadOnlyCollection<UnitOfMeasure> All =
+    [
+        Gram, Kilogram, Pound, Milliliter, Liter, FluidOunce
+    ];
+
+    public static UnitOfMeasure FromCode(string code)
     {
-        if (type == UnitOfMeasureType.Case && (itemsPerCase is null || itemsPerCase <= 1))
-        {
-            return Result.Failure<UnitOfMeasure>(ProductErrors.UnitOfMeasure.InvalidItemsPerCase);
-        }
-
-        if (type == UnitOfMeasureType.Piece && itemsPerCase is not null)
-        {
-            return Result.Failure<UnitOfMeasure>(ProductErrors.UnitOfMeasure.ItemsPerCaseForPieceNotAllowed);
-        }
-
-        return new UnitOfMeasure(type, itemsPerCase);
+        return All.FirstOrDefault(u => u.Code.Equals(code, StringComparison.OrdinalIgnoreCase))
+            ?? throw new ApplicationException("The unit of measure is invalid");
     }
 }
