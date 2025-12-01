@@ -7,6 +7,10 @@ public static class ProductErrors
         "Product.VariantWithBarcodeAlreadyExists",
         "A variant with this Barcode already exists for the product.");
 
+    public static Error NotFound(Guid productId) => Error.NotFound(
+        "Product.NotFound",
+        $"The product with the Id = '{productId}' was not found");
+
     public static class UnitOfMeasure
     {
         public static readonly Error InvalidItemsPerCase = Error.Problem(
@@ -46,5 +50,4 @@ public static class ProductErrors
             "ProductCode.InvalidFormat",
             "The product code format is invalid. It must be 'PROD-' followed by an 8-character uppercase hash (e.g., PROD-A9F3B1C8).");
     }
-
 }
