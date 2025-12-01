@@ -11,11 +11,17 @@ internal sealed class BrandConfiguration : IEntityTypeConfiguration<Brand>
 
         builder.HasKey(b => b.Id);
 
-        builder.ComplexProperty(
+        builder.OwnsOne(
             b => b.Name,
-            bld => bld.Property(e => e.Value)
-                .HasColumnName("name")
-                .HasMaxLength(100)
-                .IsRequired());
+            nameBuilder => 
+            {
+                nameBuilder.Property(e => e.Value)
+                    .HasColumnName("name")
+                    .HasMaxLength(100)
+                    .IsRequired()
+                    .HasColumnType("citext");
+
+                nameBuilder.HasIndex(e => e.Value).IsUnique();
+            });
     }
 }

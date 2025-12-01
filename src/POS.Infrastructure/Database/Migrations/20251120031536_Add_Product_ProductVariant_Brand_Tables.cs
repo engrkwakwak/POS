@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace POS.Infrastructure.Migrations;
+namespace POS.Infrastructure.Database.Migrations;
 
 /// <inheritdoc />
-public partial class Add_Product_And_Brand_Tables : Migration
+public partial class Add_Product_ProductVariant_Brand_Tables : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
@@ -13,13 +14,16 @@ public partial class Add_Product_And_Brand_Tables : Migration
         migrationBuilder.EnsureSchema(
             name: "public");
 
+        migrationBuilder.AlterDatabase()
+            .Annotation("Npgsql:PostgresExtension:citext", ",,");
+
         migrationBuilder.CreateTable(
             name: "brands",
             schema: "public",
             columns: table => new
             {
                 id = table.Column<Guid>(type: "uuid", nullable: false),
-                name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                name = table.Column<string>(type: "citext", maxLength: 100, nullable: false)
             },
             constraints: table => table.PrimaryKey("pk_brands", x => x.id));
 
@@ -50,7 +54,17 @@ public partial class Add_Product_And_Brand_Tables : Migration
                 description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                 name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
             },
-            constraints: table => table.PrimaryKey("pk_products", x => x.id));
+            constraints: table =>
+            {
+                table.PrimaryKey("pk_products", x => x.id);
+                table.ForeignKey(
+                    name: "fk_products_brands_brand_id",
+                    column: x => x.brand_id,
+                    principalSchema: "public",
+                    principalTable: "brands",
+                    principalColumn: "id",
+                    onDelete: ReferentialAction.Restrict);
+            });
 
         migrationBuilder.CreateTable(
             name: "product_variants",
@@ -82,6 +96,13 @@ public partial class Add_Product_And_Brand_Tables : Migration
             });
 
         migrationBuilder.CreateIndex(
+            name: "ix_brands_name",
+            schema: "public",
+            table: "brands",
+            column: "name",
+            unique: true);
+
+        migrationBuilder.CreateIndex(
             name: "ix_product_variants_barcode",
             schema: "public",
             table: "product_variants",
@@ -102,6 +123,12 @@ public partial class Add_Product_And_Brand_Tables : Migration
             unique: true);
 
         migrationBuilder.CreateIndex(
+            name: "ix_products_brand_id",
+            schema: "public",
+            table: "products",
+            column: "brand_id");
+
+        migrationBuilder.CreateIndex(
             name: "ix_products_product_code",
             schema: "public",
             table: "products",
@@ -113,10 +140,6 @@ public partial class Add_Product_And_Brand_Tables : Migration
     protected override void Down(MigrationBuilder migrationBuilder)
     {
         migrationBuilder.DropTable(
-            name: "brands",
-            schema: "public");
-
-        migrationBuilder.DropTable(
             name: "outbox_messages",
             schema: "public");
 
@@ -126,6 +149,10 @@ public partial class Add_Product_And_Brand_Tables : Migration
 
         migrationBuilder.DropTable(
             name: "products",
+            schema: "public");
+
+        migrationBuilder.DropTable(
+            name: "brands",
             schema: "public");
     }
 }
