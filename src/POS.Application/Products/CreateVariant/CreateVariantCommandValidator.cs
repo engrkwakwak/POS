@@ -36,6 +36,6 @@ public class CreateVariantCommandValidator : AbstractValidator<CreateVariantComm
 
         RuleFor(x => x.UnitOfMeasureCode)
             .NotEmpty().WithErrorCode(ProductErrorCodes.CreateVariant.MissingUnitOfMeasureCode)
-            .Must(code => UnitOfMeasure.All.Any(u => u.Code == code)).WithErrorCode(ProductErrorCodes.CreateVariant.InvalidUnitOfMeasureCode);
+            .Must(code => UnitOfMeasure.All.Any(u => u.Code.Equals(code, StringComparison.OrdinalIgnoreCase))).WithErrorCode(ProductErrorCodes.CreateVariant.InvalidUnitOfMeasureCode);
     }
 }
