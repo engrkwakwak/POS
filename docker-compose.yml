@@ -48,5 +48,17 @@ services:
     ports:
      - 18888:18888
 
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: POS.Azurite
+    restart: always
+    ports:
+      - "10000:10000" # Blob storage
+      - "10001:10001" # Queue storage
+      - "10002:10002" # Table storage
+    volumes:
+      - azurite_data:/data
+
 volumes:
   postgres_data:
+  azurite_data:
