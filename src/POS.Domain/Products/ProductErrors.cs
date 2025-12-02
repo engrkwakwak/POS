@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using POS.SharedKernel;
+﻿using POS.SharedKernel;
 
 namespace POS.Domain.Products;
 public static class ProductErrors
@@ -11,17 +10,6 @@ public static class ProductErrors
     public static readonly Error NotFound = Error.NotFound(
         "Product.NotFound",
         "The product with the specified identifier was not found");
-
-    public static class UnitOfMeasure
-    {
-        public static readonly Error InvalidItemsPerCase = Error.Problem(
-            "UnitOfMeasure.InvalidItemsPerCase",
-            "Items per case must be greater than 1 for a case unit of measure.");
-
-        public static readonly Error ItemsPerCaseForPieceNotAllowed = Error.Problem(
-            "UnitOfMeasure.ItemsPerCaseForPieceNotAllowed",
-            "Items per case should not be specified for a piece unit of measure.");
-    }
 
     public static class Measurement
     {

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using POS.Domain.Products;
+using POS.Domain.Shared;
 
 namespace POS.Application.Products.CreateVariant;
 
@@ -17,7 +18,9 @@ public class CreateVariantCommandValidator : AbstractValidator<CreateVariantComm
             .PrecisionScale(18, 2, true).WithErrorCode(ProductErrorCodes.CreateVariant.PricePrecisionExceeded);
 
         RuleFor(x => x.PriceCurrencyCode)
-            .NotEmpty().WithErrorCode(ProductErrorCodes.CreateVariant.MissingCurrencyCode);
+            .NotEmpty().WithErrorCode(ProductErrorCodes.CreateVariant.MissingCurrencyCode)
+            .Must(code => code.Length == 3).WithErrorCode(ProductErrorCodes.CreateVariant.InvalidCurrencyCode)
+            .Must(code => Currency.All.Any(c => c.Code == code)).WithErrorCode(ProductErrorCodes.CreateVariant.InvalidCurrencyCode);
 
         RuleFor(x => x.PackageType)
             .IsInEnum().WithErrorCode(ProductErrorCodes.CreateVariant.InvalidPackageType);
@@ -32,6 +35,7 @@ public class CreateVariantCommandValidator : AbstractValidator<CreateVariantComm
             .PrecisionScale(18, 2, true).WithErrorCode(ProductErrorCodes.CreateVariant.MeasurementAmountPrecisionExceeded);
 
         RuleFor(x => x.UnitOfMeasureCode)
-            .NotEmpty().WithErrorCode(ProductErrorCodes.CreateVariant.MissingUnitOfMeasureCode);
+            .NotEmpty().WithErrorCode(ProductErrorCodes.CreateVariant.MissingUnitOfMeasureCode)
+            .Must(code => UnitOfMeasure.All.Any(u => u.Code == code)).WithErrorCode(ProductErrorCodes.CreateVariant.InvalidUnitOfMeasureCode);
     }
 }

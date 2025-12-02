@@ -89,7 +89,7 @@ public partial class ReconfigureProductVariantTable : Migration
             table: "product_variants",
             type: "integer",
             nullable: false,
-            defaultValue: 0);
+            defaultValue: 1);
     }
 
     /// <inheritdoc />

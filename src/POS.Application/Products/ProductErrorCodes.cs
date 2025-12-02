@@ -29,5 +29,7 @@ public static class ProductErrorCodes
         public const string InvalidMeasurementAmount = nameof(InvalidMeasurementAmount);
         public const string MeasurementAmountPrecisionExceeded = nameof(MeasurementAmountPrecisionExceeded);
         public const string MissingUnitOfMeasureCode = nameof(MissingUnitOfMeasureCode);
+        public const string InvalidCurrencyCode = nameof(InvalidCurrencyCode);
+        public const string InvalidUnitOfMeasureCode = nameof(InvalidUnitOfMeasureCode);
     }
 }

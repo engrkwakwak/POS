@@ -3,7 +3,7 @@
 public sealed record UnitOfMeasure
 {
     public static readonly UnitOfMeasure Gram = new("g", "Gram", UnitType.Mass, 1);
-    public static readonly UnitOfMeasure Kilogram = new("g", "Kilogram", UnitType.Mass, 1000);
+    public static readonly UnitOfMeasure Kilogram = new("kg", "Kilogram", UnitType.Mass, 1000);
     public static readonly UnitOfMeasure Pound = new("lb", "Pound", UnitType.Mass, 453.592m);
 
     public static readonly UnitOfMeasure Milliliter = new("ml", "Milliliter", UnitType.Volume, 1);
