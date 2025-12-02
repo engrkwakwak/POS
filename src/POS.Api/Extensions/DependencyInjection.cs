@@ -1,4 +1,6 @@
-﻿using Asp.Versioning;
+﻿using System.Text.Json.Serialization;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Http.Json;
 using POS.Api.Infrastructure;
 using POS.Api.OpenApi;
 
@@ -26,6 +28,8 @@ internal static class DependencyInjection
         
         services.ConfigureOptions<ConfigureSwaggerGenOptions>();
 
+        services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
         return services;
-    }
+    } 
 }
