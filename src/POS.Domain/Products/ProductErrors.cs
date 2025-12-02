@@ -3,30 +3,30 @@
 namespace POS.Domain.Products;
 public static class ProductErrors
 {
-    public static readonly Error VariantWithBarcodeAlreadyExists = Error.Conflict(
-        "Product.VariantWithBarcodeAlreadyExists",
+    public static readonly Error DuplicateVariant = Error.Conflict(
+        "Product.DuplicateVariant",
         "A variant with this Barcode already exists for the product.");
 
-    public static Error NotFound(Guid productId) => Error.NotFound(
+    public static readonly Error NotFound = Error.NotFound(
         "Product.NotFound",
-        $"The product with the Id = '{productId}' was not found");
+        "The product with the specified identifier was not found");
 
-    public static class UnitOfMeasure
-    {
-        public static readonly Error InvalidItemsPerCase = Error.Problem(
-            "UnitOfMeasure.InvalidItemsPerCase",
-            "Items per case must be greater than 1 for a case unit of measure.");
-
-        public static readonly Error ItemsPerCaseForPieceNotAllowed = Error.Problem(
-            "UnitOfMeasure.ItemsPerCaseForPieceNotAllowed",
-            "Items per case should not be specified for a piece unit of measure.");
-    }
-
-    public static class PackageSize
+    public static class Measurement
     {
         public static readonly Error InvalidValue = Error.Problem(
-            "PackageSize.InvalidValue",
-            "The package size value must be greater than zero.");
+            "Measurement.InvalidValue",
+            "The measurement value must be greater than zero.");
+    }
+    
+    public static class Packaging
+    {
+        public static readonly Error InvalidBoxQuantity = Error.Problem(
+            "Packaging.InvalidBoxQuantity",
+            "A box must contain at least 2 items. Use 'Piece' for single items.");
+
+        public static readonly Error InvalidType = Error.Problem(
+            "Packaging.InvalidType",
+            "The package type is not supported.");
     }
 
     public static class Sku
@@ -50,4 +50,5 @@ public static class ProductErrors
             "ProductCode.InvalidFormat",
             "The product code format is invalid. It must be 'PROD-' followed by an 8-character uppercase hash (e.g., PROD-A9F3B1C8).");
     }
+
 }

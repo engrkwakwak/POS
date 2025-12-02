@@ -29,7 +29,7 @@ internal sealed class ProductVariantConfiguration : IEntityTypeConfiguration<Pro
             {
                 barcodeBuilder.Property(barcode => barcode.Value)
                     .HasColumnName("barcode")
-                    .HasMaxLength(100)
+                    .HasMaxLength(20)
                     .IsRequired();
                 barcodeBuilder.HasIndex(barcode => barcode.Value).IsUnique();
             });
@@ -39,36 +39,52 @@ internal sealed class ProductVariantConfiguration : IEntityTypeConfiguration<Pro
             priceBuilder =>
             {
                 priceBuilder.Property(money => money.Amount)
-                    .HasColumnName("price_amount");
+                    .HasColumnName("price_amount")
+                    .HasPrecision(18, 2)
+                    .IsRequired();
 
                 priceBuilder.Property(money => money.Currency)
                     .HasColumnName("price_currency")
                     .HasMaxLength(3)
                     .HasConversion(
                         currency => currency.Code,
-                        code => Currency.FromCode(code));
+                        code => Currency.FromCode(code))
+                    .IsRequired();
             });
 
         builder.ComplexProperty(
-            v => v.UnitOfMeasure,
-            uomBuilder =>
+            v => v.Packaging,
+            packagingBuilder =>
             {
-                uomBuilder.Property(uom => uom.Type)
-                    .HasColumnName("unit_of_measure_type");
+                packagingBuilder.Property(p => p.Type)
+                    .HasColumnName("packaging_type")
+                    .IsRequired()
+                    .HasConversion<string>();
 
-                uomBuilder.Property(uom => uom.ItemsPerCase)
-                    .HasColumnName("unit_of_measure_items_per_case");
+                packagingBuilder.Property(p => p.Quantity)
+                     .HasColumnName("packaging_quantity")
+                     .IsRequired();
             });
 
         builder.ComplexProperty(
-            v => v.Size,
+            v => v.PackageSize,
             sizeBuilder =>
             {
-                sizeBuilder.Property(size => size.Value)
-                    .HasColumnName("package_size_value");
+                sizeBuilder.Property(s => s.Value)
+                    .HasColumnName("package_size_value")
+                    .HasPrecision(18, 2)
+                    .IsRequired();
 
-                sizeBuilder.Property(size => size.Unit)
-                    .HasColumnName("package_size_unit");
+                sizeBuilder.Property(s => s.Unit)
+                    .HasColumnName("package_size_unit")
+                    .HasMaxLength(10)
+                    .HasConversion(
+                        unit => unit.Code,
+                        code => UnitOfMeasure.FromCode(code)!);
             });
+
+        builder.Property(v => v.IsVatable)
+            .HasColumnName("is_vatable")
+            .HasDefaultValue(true);
     }
 }

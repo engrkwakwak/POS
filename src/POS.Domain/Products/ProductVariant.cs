@@ -9,8 +9,8 @@ public sealed class ProductVariant : Entity
         Guid productId,
         Barcode barcode,
         Money price,
-        UnitOfMeasure unitOfMeasure,
-        PackageSize size,
+        Packaging packaging,
+        Measurement packageSize,
         bool isVatable)
         : base(id)
     {
@@ -18,8 +18,8 @@ public sealed class ProductVariant : Entity
         Sku = Sku.Generate(id);
         Barcode = barcode;
         Price = price;
-        UnitOfMeasure = unitOfMeasure;
-        Size = size;
+        Packaging = packaging;
+        PackageSize = packageSize;
         IsVatable = isVatable;
     }
 
@@ -31,7 +31,8 @@ public sealed class ProductVariant : Entity
     public Sku Sku { get; private set; }
     public Barcode Barcode { get; private set; }
     public Money Price { get; private set; }
-    public UnitOfMeasure UnitOfMeasure { get; private set; }
-    public PackageSize Size { get; private set; }
+    public Packaging Packaging { get; private set; }
+    public Measurement PackageSize { get; private set; }
+
     public bool IsVatable { get; private set; }
 }
