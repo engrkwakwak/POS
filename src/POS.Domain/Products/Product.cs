@@ -56,13 +56,13 @@ public sealed class Product : Entity
     public Result<ProductVariant> AddVariant(
         Barcode barcode,
         Money price,
-        UnitOfMeasure unitOfMeasure,
-        PackageSize size,
+        Packaging packaging,
+        Measurement packageSize,
         bool isVatable)
     {
         if (_variants.Any(v => v.Barcode == barcode))
         {
-            return Result.Failure<ProductVariant>(ProductErrors.VariantWithBarcodeAlreadyExists);
+            return Result.Failure<ProductVariant>(ProductErrors.DuplicateVariant);
         }
 
         var variant = new ProductVariant(
@@ -70,8 +70,8 @@ public sealed class Product : Entity
             Id, 
             barcode, 
             price, 
-            unitOfMeasure,
-            size,
+            packaging,
+            packageSize,
             isVatable);
 
         _variants.Add(variant);
