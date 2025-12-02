@@ -30,7 +30,7 @@ internal sealed class CreateVariant : IEndpoint
             Result<Guid> result = await sender.Send(command, cancellationToken);
 
             return result.Match(
-                () => Results.CreatedAtRoute("GetVariant", new { id = result.Value }),
+                () => Results.CreatedAtRoute(nameof(GetVariantById), new { id = result.Value }),
                 CustomResults.Problem);
         })
         .WithTags(Tags.Products);

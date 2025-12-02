@@ -25,7 +25,7 @@ internal sealed class Create : IEndpoint
             Result<Guid> result = await sender.Send(command, cancellationToken);
 
             return result.Match(
-                () => Results.CreatedAtRoute("Get", new { id = result.Value }),
+                () => Results.CreatedAtRoute(nameof(GetById), new { id = result.Value }),
                 CustomResults.Problem);
         })
         .WithTags(Tags.Products);

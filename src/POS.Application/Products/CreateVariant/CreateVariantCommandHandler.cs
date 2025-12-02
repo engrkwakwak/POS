@@ -58,7 +58,7 @@ internal sealed class CreateVariantCommandHandler
 
         if (product is null)
         {
-            return Result.Failure<Guid>(ProductErrors.NotFound);
+            return Result.Failure<Guid>(ProductErrors.NotFound(request.ProductId));
         }
 
         Result<ProductVariant> addVariantResult = product.AddVariant(

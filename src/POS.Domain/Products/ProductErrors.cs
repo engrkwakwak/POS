@@ -7,9 +7,9 @@ public static class ProductErrors
         "Product.DuplicateVariant",
         "A variant with this Barcode already exists for the product.");
 
-    public static readonly Error NotFound = Error.NotFound(
+    public static Error NotFound(Guid ProductId) => Error.NotFound(
         "Product.NotFound",
-        "The product with the specified identifier was not found");
+        $"The product with the identifier {ProductId} was not found");
 
     public static class Measurement
     {
